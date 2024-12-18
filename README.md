@@ -1,6 +1,6 @@
 # 📚 Web Scraping Project with Scrapy and MongoDB
 
-![Build Status](https://img.shields.io/github/actions/workflow/status/AathifZahir/Py-Scrap/ci.yml?label=Build) 
+![Code Status](https://img.shields.io/github/actions/workflow/status/AathifZahir/Py-Scrap/ci.yml?label=Code%20Status)
 ![License](https://img.shields.io/github/license/AathifZahir/Py-Scrap) 
 ![Python Version](https://img.shields.io/badge/python-3.9%2B-blue) 
 ![Scrapy](https://img.shields.io/badge/scrapy-framework-orange) 
