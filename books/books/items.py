@@ -11,3 +11,4 @@ class BooksItem(scrapy.Item):
     # name = scrapy.Field()
     title = scrapy.Field()
     price = scrapy.Field()
+    url = scrapy.Field()

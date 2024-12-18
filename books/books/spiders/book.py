@@ -19,6 +19,7 @@ class BookSpider(scrapy.Spider):
             item = BooksItem()
             item["title"] = book.css("h3 > a::text").get()
             item["price"] = book.css("div > div > span > span::text").get()
+            item["url"] = response.url
             yield item
         
         cp = response.url.split("p=")[-1]
