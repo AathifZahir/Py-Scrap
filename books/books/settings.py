@@ -93,4 +93,4 @@ FEED_EXPORT_ENCODING = "utf-8"
 
 #MONGO
 MONGO_URI = "mongodb://localhost:27017"
-MONGO_DB = "books"
+MONGO_DB = "books_db"
