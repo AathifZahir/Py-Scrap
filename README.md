@@ -28,10 +28,12 @@ This project demonstrates how to build a web scraper using **Scrapy**, a powerfu
 
 ### Objective
 
-The scraper is designed to extract book information from [atticbooks.co.ke](https://atticbooks.co.ke/) in the **non-fiction books category**. It:
-- Extracts relevant data like book titles and prices.
+The scraper is designed to extract product information from **Amazon**. It:
+- Extracts relevant data like product names, prices, ratings, and images.
 - Handles pagination to scrape data across multiple pages.
 - Stores the extracted data in a MongoDB database for further analysis or processing.
+
+The scraper can be used for various products, not just books. You can search for any product category by passing the desired keyword.
 
 ---
 
@@ -101,13 +103,20 @@ Before running the scraper, ensure you have the following installed:
 To execute the scraper, use the following command:
 
 ```bash
-scrapy crawl book
+scrapy crawl book -a keyword="laptops"
 ```
 
 The scraper will:
-- Start at the specified URL.
-- Navigate through the non-fiction books category.
-- Extract data and store it in the MongoDB database.
+- Use the passed keyword (default is "books").
+- Start at the specified Amazon search URL.
+- Navigate through the pages and extract data like product names, prices, ratings, and images.
+- Store the extracted data in the MongoDB database.
+
+If you do not pass a keyword, the scraper will default to searching for "books". Example:
+
+```bash
+scrapy crawl book
+```
 
 ---
 
@@ -133,23 +142,33 @@ books_scraper/
 - `items.py`: Defines the data structure for the scraped items.
 - `pipelines.py`: Contains the pipeline for processing and storing items in MongoDB.
 - `settings.py`: Configuration settings for the Scrapy project, including MongoDB connection details.
-- `spiders/book_spider.py`: The main spider responsible for scraping the website.
+- `spiders/book_spider.py`: The main spider responsible for scraping Amazon.
 
 ---
 
 ## ✨ Customization
 
-To adapt the scraper for different categories or websites:
+To adapt the scraper for different keywords or websites:
 
-1. **Update the `start_urls`**:
+1. **Pass a Keyword Dynamically**:
 
-   Modify the `start_urls` list in `book_spider.py` to point to the desired category or website.
+   The spider can be run with a dynamic keyword using the `-a` argument. Example for scraping books related to "laptops":
 
-2. **Adjust the Parsing Logic**:
+   ```bash
+   scrapy crawl book -a keyword="laptops"
+   ```
+
+   By default, if no keyword is passed, the scraper will search for "books".
+
+2. **Update the `start_urls`**:
+
+   Modify the `start_urls` list in `book_spider.py` to point to a different website or category.
+
+3. **Adjust the Parsing Logic**:
 
    Ensure the CSS selectors in the `parse` method of `book_spider.py` accurately target the desired data fields on the new website.
 
-3. **Handle Pagination**:
+4. **Handle Pagination**:
 
    If the target website uses a different pagination structure, update the pagination handling logic in the `parse` method accordingly.
 
@@ -173,3 +192,7 @@ For more detailed information on the tools and techniques used in this project, 
 ## ⭐ Support
 
 If you like this project, please give it a ⭐ by clicking the star button at the top of the repository! It helps others discover the project and motivates me to improve it further. ❤️
+
+---
+
+This update now allows users to pass a custom keyword for the search and if not passed, the default is "books".
