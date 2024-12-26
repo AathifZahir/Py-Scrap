@@ -28,10 +28,12 @@ This project demonstrates how to build a web scraper using **Scrapy**, a powerfu
 
 ### Objective
 
-The scraper is designed to extract book information from **Amazon**. It:
-- Extracts relevant data like book titles, prices, ratings, and images.
+The scraper is designed to extract product information from **Amazon**. It:
+- Extracts relevant data like product names, prices, ratings, and images.
 - Handles pagination to scrape data across multiple pages.
 - Stores the extracted data in a MongoDB database for further analysis or processing.
+
+The scraper can be used for various products, not just books. You can search for any product category by passing the desired keyword.
 
 ---
 
@@ -107,7 +109,7 @@ scrapy crawl book -a keyword="laptops"
 The scraper will:
 - Use the passed keyword (default is "books").
 - Start at the specified Amazon search URL.
-- Navigate through the pages and extract data like book titles, prices, ratings, and images.
+- Navigate through the pages and extract data like product names, prices, ratings, and images.
 - Store the extracted data in the MongoDB database.
 
 If you do not pass a keyword, the scraper will default to searching for "books". Example:
