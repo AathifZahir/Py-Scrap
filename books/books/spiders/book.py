@@ -7,6 +7,11 @@ class BookSpider(scrapy.Spider):
     allowed_domains = ["amazon.sg"]
     start_urls = ["https://www.amazon.sg/s?k=books&page=1"]
 
+    def __init__(self, keyword="books", *args, **kwargs):
+        super(BookSpider, self).__init__(*args, **kwargs)
+        self.keyword = keyword
+        self.start_urls = [f"https://www.amazon.sg/s?k={keyword}&page=1"]
+
     def parse(self, response):
 
         no_results = response.css("span.a-size-medium.a-color-base::text").get()
