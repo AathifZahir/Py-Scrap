@@ -7,6 +7,7 @@ class BookSpider(scrapy.Spider):
     allowed_domains = ["amazon.sg"]
     start_urls = ["https://www.amazon.sg/s?k=books&page=1"]
 
+    #initializing the spider with keyword
     def __init__(self, keyword="books", *args, **kwargs):
         super(BookSpider, self).__init__(*args, **kwargs)
         self.keyword = keyword
@@ -14,6 +15,7 @@ class BookSpider(scrapy.Spider):
 
     def parse(self, response):
 
+        #check if there are no results
         no_results = response.css("span.a-size-medium.a-color-base::text").get()
         if no_results and "No results for" in no_results:
             self.log("No results found, stopping the crawl.")
@@ -25,6 +27,7 @@ class BookSpider(scrapy.Spider):
             print("No books found")
             return
 
+        #extracting the book details using css selectors while validating them
         for book in response.css("div.a-section"):
             item = BooksItem()
             item["imgurl"] = book.css("img.s-image::attr(src)").get()
@@ -45,6 +48,7 @@ class BookSpider(scrapy.Spider):
             if all(field in item for field in ["title", "price", "imgurl"]):
                 yield item
         
+        #extracting the next page url and calling the parse function recursively
         cp = response.url.split("page=")[-1]
         np = int(cp) + 1
         npu = f"https://www.amazon.sg/s?k=books&page={np}"

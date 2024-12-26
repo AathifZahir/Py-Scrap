@@ -16,6 +16,7 @@ class BooksPipeline:
         self.mongo_uri = mongo_uri
         self.mongo_db = mongo_db
 
+    #creating a class method to get the settings from the settings.py file
     @classmethod
     def from_crawler(cls, crawler):
         return cls(
@@ -30,6 +31,7 @@ class BooksPipeline:
     def close_spider(self, spider):
         self.client.close()
 
+    #inserting the scraped data into the mongodb collection
     def process_item(self, item, spider):
         self.db[self.COLLECTION_NAME].insert_one(ItemAdapter(item).asdict())
         return item
